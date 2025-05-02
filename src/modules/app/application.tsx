@@ -5,7 +5,6 @@ import { OSM } from "ol/source";
 import { useGeographic } from "ol/proj";
 
 import "ol/ol.css";
-import "./application.css";
 
 useGeographic();
 
