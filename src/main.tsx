@@ -5,4 +5,4 @@ import { Application } from "./modules/app/application";
 createRoot(document.getElementById("root")!).render(<Application />);
 
 //Skriv kommentar + navn her:
-//Hei - Anna
+//Heisann - Anna
