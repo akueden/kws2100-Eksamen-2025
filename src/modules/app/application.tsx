@@ -21,7 +21,7 @@ export function Application() {
       }),
     });
 
-    return () => map.setTarget(undefined); // Rydd opp når komponent demonteres
+    return () => map.setTarget(undefined);
   }, []);
 
   return <div ref={mapRef} style={{ width: "100%", height: "100vh" }}></div>;
