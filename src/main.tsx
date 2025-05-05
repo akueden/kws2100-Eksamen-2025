@@ -4,4 +4,4 @@ import { Application } from "./modules/app/application";
 
 createRoot(document.getElementById("root")!).render(<Application />);
 
-//Test
+//Skriv kommentar + navn her:
