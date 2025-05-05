@@ -1,28 +1,76 @@
 import React, { useEffect, useRef } from "react";
-import { Map, View } from "ol";
+import { Feature, Map, View } from "ol";
 import TileLayer from "ol/layer/Tile";
 import { OSM } from "ol/source";
 import { useGeographic } from "ol/proj";
 
 import "ol/ol.css";
+import { DrawPointButton } from "./components/drawPointButton";
+import {
+  drawingVectorLayer,
+  drawingVectorSource,
+} from "./components/drawingVectorLayer";
+import VectorSource from "ol/source/Vector";
+import { Draw } from "ol/interaction";
 
 useGeographic();
 
+const map = new Map({
+  view: new View({ center: [10.76, 59.92], zoom: 12 }),
+  layers: [new TileLayer({ source: new OSM() }), drawingVectorLayer],
+});
+
+function DrawPolygonButton({
+  source,
+  map,
+}: {
+  map: Map;
+  source: VectorSource;
+}) {
+  function handleClick() {
+    const draw = new Draw({ type: "Polygon", source });
+    map.addInteraction(draw);
+    source.once("addfeature", (e) => {
+      map.removeInteraction(draw);
+    });
+  }
+
+  return <button onClick={handleClick}>Add polygon</button>;
+}
+
+function DrawCircleButton({ source, map }: { map: Map; source: VectorSource }) {
+  function handleClick() {
+    const draw = new Draw({ type: "Circle", source });
+    map.addInteraction(draw);
+    source.once("addfeature", (e) => {
+      map.removeInteraction(draw);
+    });
+  }
+
+  return <button onClick={handleClick}>Add circle</button>;
+}
+
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
-
   useEffect(() => {
-    const map = new Map({
-      target: mapRef.current!,
-      layers: [new TileLayer({ source: new OSM() })],
-      view: new View({
-        center: [10.8, 59.9],
-        zoom: 13,
-      }),
-    });
+    map.setTarget(mapRef.current!);
 
-    return () => map.setTarget(undefined);
+    map.on("click", (e) => {
+      const features = map.getFeaturesAtPixel(e.pixel, {
+        layerFilter: (l) => l === drawingVectorLayer,
+      });
+      for (const feature of features) {
+        drawingVectorSource.removeFeature(feature as Feature);
+      }
+    });
   }, []);
 
-  return <div ref={mapRef} style={{ width: "100%", height: "100vh" }}></div>;
+  return (
+    <>
+      <DrawPointButton map={map} source={drawingVectorSource} />
+      <DrawPolygonButton map={map} source={drawingVectorSource} />
+      <DrawCircleButton map={map} source={drawingVectorSource} />
+      <div ref={mapRef}></div>
+    </>
+  );
 }
