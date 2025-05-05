@@ -6,3 +6,4 @@ createRoot(document.getElementById("root")!).render(<Application />);
 
 //Skriv kommentar + navn her:
 //Heisann - Anna
+// Hei, hvordan går det - Amima
