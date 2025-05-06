@@ -1,32 +1,39 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import pg from "pg";
-import { serveStatic } from "@hono/node-server/serve-static";
 
-// For Heroku
-const connectionString = process.env.DATABASE_URL;
-const postgresql = connectionString
-  ? new pg.Pool({ connectionString, ssl: { rejectUnauthorized: false } })
-  : new pg.Pool({ user: "postgres" });
+const postgresql = new pg.Pool({ user: "postgres" });
 
 const app = new Hono();
-app.get("/api/kommuner", async (c) => {
+app.get("/api/hello", async (c) => {
+  return c.text("Hello World!");
+});
+app.get("/kws2100-Eksamen-2025/api/skoler", async (c) => {
   const result = await postgresql.query(
-    "select kommunenummer, kommunenavn, st_transform(st_simplify(omrade, 100), 4326)::json as geometry from kommune",
+    `select
+         skolenavn, eierforhold, besoksadresse_besoksadresse_adressenavn, besoksadresse_besoksadresse_postnummer, besoksadresse_besoksadresse_poststed,
+         st_transform(posisjon, 4326)::json as posisjon
+    from grunnskoler_3697913259634315b061b324a3f2cf59.grunnskole s
+        inner join fylker_ba7aea2735714391a98b1a585644e98a.fylke f on st_contains(f.omrade, s.posisjon)
+        inner join fylker_ba7aea2735714391a98b1a585644e98a.administrativenhetnavn n on f.objid = n.fylke_fk
+    where
+        n.navn = 'Viken'
+    `,
   );
   return c.json({
     type: "FeatureCollection",
-    crs: { type: "name", properties: { name: "ESPG:4326" } },
+    crs: {
+      type: "name",
+      properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },
+    },
     features: result.rows.map(
-      ({ kommunenummer, kommunenavn, geometry: { coordinates, type } }) => ({
+      ({ posisjon: { coordinates }, ...properties }) => ({
         type: "Feature",
-        geometry: { type, coordinates },
-        properties: { kommunenummer, kommunenavn },
+        properties,
+        geometry: { type: "Point", coordinates },
       }),
     ),
   });
 });
-app.use("*", serveStatic({ root: "../dist" }));
 
-const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-serve({ fetch: app.fetch, port });
+serve(app);
