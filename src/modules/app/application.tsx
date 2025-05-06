@@ -1,57 +1,17 @@
 import React, { useEffect, useRef } from "react";
-import { Feature, Map, View } from "ol";
-import TileLayer from "ol/layer/Tile";
-import { OSM } from "ol/source";
-import { useGeographic } from "ol/proj";
-
-import "ol/ol.css";
+import { map } from "./map/initMap";
 import { DrawPointButton } from "./components/drawPointButton";
+import { DrawPolygonButton } from "./components/drawPolygonButton";
+import { DrawCircleButton } from "./components/drawCircleButton";
 import {
   drawingVectorLayer,
   drawingVectorSource,
 } from "./components/drawingVectorLayer";
-import VectorSource from "ol/source/Vector";
-import { Draw } from "ol/interaction";
-
-useGeographic();
-
-const map = new Map({
-  view: new View({ center: [10.76, 59.92], zoom: 12 }),
-  layers: [new TileLayer({ source: new OSM() }), drawingVectorLayer],
-});
-
-function DrawPolygonButton({
-  source,
-  map,
-}: {
-  map: Map;
-  source: VectorSource;
-}) {
-  function handleClick() {
-    const draw = new Draw({ type: "Polygon", source });
-    map.addInteraction(draw);
-    source.once("addfeature", (e) => {
-      map.removeInteraction(draw);
-    });
-  }
-
-  return <button onClick={handleClick}>Add polygon</button>;
-}
-
-function DrawCircleButton({ source, map }: { map: Map; source: VectorSource }) {
-  function handleClick() {
-    const draw = new Draw({ type: "Circle", source });
-    map.addInteraction(draw);
-    source.once("addfeature", (e) => {
-      map.removeInteraction(draw);
-    });
-  }
-
-  return <button onClick={handleClick}>Add circle</button>;
-}
+import { Feature } from "ol";
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     map.setTarget(mapRef.current!);
 
