@@ -17,7 +17,7 @@ export const schoolLayer = new VectorLayer({
     return new Style({
       image: new CircleStyle({
         radius,
-        fill: new Fill({ color: "rgba(0,0,255,0.6)" }),
+        fill: new Fill({ color: "rgba(59,59,104,0.6)" }),
         stroke: new Stroke({ color: "white", width: 1 }),
       }),
     });
