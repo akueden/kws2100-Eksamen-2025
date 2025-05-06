@@ -2,38 +2,71 @@ import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import pg from "pg";
 
-const postgresql = new pg.Pool({ user: "postgres" });
+const postgresql = new pg.Pool({
+  user: "postgres",
+  password: "postgres",
+  host: "localhost",
+  port: 5432,
+  database: "postgres",
+});
 
 const app = new Hono();
-app.get("/api/hello", async (c) => {
-  return c.text("Hello World!");
+
+app.get("/api/test", (c) => {
+  return c.text("Serveren kjører!");
 });
+
 app.get("/kws2100-Eksamen-2025/api/skoler", async (c) => {
-  const result = await postgresql.query(
-    `select
-         skolenavn, eierforhold, besoksadresse_besoksadresse_adressenavn, besoksadresse_besoksadresse_postnummer, besoksadresse_besoksadresse_poststed,
-         st_transform(posisjon, 4326)::json as posisjon
-    from grunnskoler_3697913259634315b061b324a3f2cf59.grunnskole s
-        inner join fylker_ba7aea2735714391a98b1a585644e98a.fylke f on st_contains(f.omrade, s.posisjon)
-        inner join fylker_ba7aea2735714391a98b1a585644e98a.administrativenhetnavn n on f.objid = n.fylke_fk
-    where
-        n.navn = 'Viken'
-    `,
-  );
-  return c.json({
-    type: "FeatureCollection",
-    crs: {
-      type: "name",
-      properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },
-    },
-    features: result.rows.map(
-      ({ posisjon: { coordinates }, ...properties }) => ({
+  try {
+    const result = await postgresql.query(`
+      SELECT skolenavn, kommunenummer,
+        ST_AsGeoJSON(ST_Transform(posisjon, 4326))::json AS geometry
+      FROM grunnskoler_3697913259634315b061b324a3f2cf59.grunnskole
+      WHERE posisjon IS NOT NULL
+    `);
+    return c.json({
+      type: "FeatureCollection",
+      crs: {
+        type: "name",
+        properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },
+      },
+      features: result.rows.map(({ geometry: { coordinates }, ...props }) => ({
         type: "Feature",
-        properties,
+        properties: props,
         geometry: { type: "Point", coordinates },
-      }),
-    ),
-  });
+      })),
+    });
+  } catch (err: any) {
+    console.error("Feil i /skoler:", err);
+    return c.text("Noe gikk galt på serveren");
+  }
+});
+
+app.get("/kws2100-Eksamen-2025/api/fylker", async (c) => {
+  try {
+    const result = await postgresql.query(`
+      SELECT n.navn, f.fylkesnummer,
+        ST_AsGeoJSON(ST_Transform(f.omrade, 4326))::json AS geometry
+      FROM fylker_f5ebc56204d5463496260e99cba427e8.fylke f
+      JOIN fylker_f5ebc56204d5463496260e99cba427e8.administrativenhetnavn n
+        ON f.lokalid = n.fylke_fk
+    `);
+    return c.json({
+      type: "FeatureCollection",
+      crs: {
+        type: "name",
+        properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },
+      },
+      features: result.rows.map(({ geometry, ...props }) => ({
+        type: "Feature",
+        properties: props,
+        geometry,
+      })),
+    });
+  } catch (err: any) {
+    console.error("Feil i /fylker:", err);
+    return c.text("Noe gikk galt på serveren");
+  }
 });
 
 serve(app);

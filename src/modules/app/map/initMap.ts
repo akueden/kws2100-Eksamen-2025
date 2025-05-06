@@ -11,9 +11,9 @@ useGeographic();
 
 const osmLayer = new TileLayer({ source: new OSM() });
 
-const municipalityLayer = new VectorLayer({
+const countiesLayer = new VectorLayer({
   source: new VectorSource({
-    url: "/kws2100-Eksamen-2025/geojson/kommuner.geojson",
+    url: "/kws2100-Eksamen-2025/geojson/fylker.geojson",
     format: new GeoJSON(),
   }),
 });
@@ -27,5 +27,5 @@ const schoolLayer = new VectorLayer({
 
 export const map = new Map({
   view: new View({ center: [10.8, 59.9], zoom: 8 }),
-  layers: [osmLayer, municipalityLayer, schoolLayer, drawingVectorLayer],
+  layers: [osmLayer, countiesLayer, schoolLayer, drawingVectorLayer],
 });
