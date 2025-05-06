@@ -4,9 +4,9 @@ import { OSM } from "ol/source";
 import { useGeographic } from "ol/proj";
 import { drawingVectorLayer } from "../components/drawingVectorLayer";
 
-import { countiesLayer } from "./layers/countiesLayer";
-import { schoolLayer } from "./layers/schoolLayer";
-import { shelterLayer } from "./layers/shelterLayer";
+import { countiesLayer } from "../layers/countiesLayer";
+import { schoolLayer } from "../layers/schoolLayer";
+import { shelterLayer } from "../layers/shelterLayer";
 
 useGeographic();
 
