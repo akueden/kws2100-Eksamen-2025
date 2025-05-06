@@ -10,6 +10,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@bufbuild/protobuf": "^2.3.0",
     "@hono/node-server": "^1.14.1",
     "download-cli": "^1.1.1",
     "ol": "^10.5.0",
