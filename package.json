@@ -6,8 +6,8 @@
     "test": "tsc --noEmit && prettier --check .",
     "dev": "vite",
     "build": "vite build",
+    "start": "tsx server/server.ts",
     "prepare": "husky",
-    "start": "vite preview --port $PORT",
     "protoc:win": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_out=generated/ --ts_proto_opt=esModuleInterop=true ./gtfs-realtime.proto"
   },
   "repository": {
