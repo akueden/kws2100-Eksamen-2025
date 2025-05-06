@@ -69,4 +69,42 @@ app.get("/kws2100-Eksamen-2025/api/fylker", async (c) => {
   }
 });
 
+app.get("/kws2100-Eksamen-2025/api/tilfluktsrom", async (c) => {
+  try {
+    const result = await postgresql.query(`
+      SELECT
+        objid,
+        objtype, 
+        plasser,
+        adresse,
+        (posisjon)::json AS geometry
+      FROM tilfluktsromoffentlige_1ca0552f72b448c48751aac65d753676.tilfluktsrom
+      WHERE posisjon IS NOT NULL
+    `);
+
+    const geojson = {
+      type: "FeatureCollection" as const,
+      crs: {
+        type: "name" as const,
+        properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },
+      },
+      features: result.rows.map((row) => {
+        const { geometry, ...props } = row;
+        return {
+          type: "Feature" as const,
+          properties: props,
+          geometry: geometry as {
+            type: "Point";
+            coordinates: [number, number];
+          },
+        };
+      }),
+    };
+    return c.json(geojson);
+  } catch (err: any) {
+    console.error("Feil i /tilfluktsrom:");
+    return c.text("Noe gikk galt på serveren");
+  }
+});
+
 serve(app);
