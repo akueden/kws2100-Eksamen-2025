@@ -74,10 +74,10 @@ app.get("/kws2100-Eksamen-2025/api/tilfluktsrom", async (c) => {
     const result = await postgresql.query(`
       SELECT
         objid,
-        objtype, 
+        objtype,
         plasser,
         adresse,
-        (posisjon)::json AS geometry
+        ST_AsGeoJSON(ST_Transform(posisjon, 4326))::json AS geometry
       FROM tilfluktsromoffentlige_1ca0552f72b448c48751aac65d753676.tilfluktsrom
       WHERE posisjon IS NOT NULL
     `);
