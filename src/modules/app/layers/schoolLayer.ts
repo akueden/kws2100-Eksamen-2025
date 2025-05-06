@@ -10,12 +10,16 @@ const schoolSource = new VectorSource({
 
 export const schoolLayer = new VectorLayer({
   source: schoolSource,
-  style: new Style({
-    image: new CircleStyle({
-      radius: 5,
-      fill: new Fill({ color: "rgba(0,0,255,0.4)" }), // semitransparent blå
-      stroke: new Stroke({ color: "white", width: 1 }),
-    }),
-  }),
   zIndex: 5,
+  style: (feature) => {
+    const elevtall = feature.get("antallelever") as number;
+    const radius = Math.max(4, Math.min(elevtall / 20, 30));
+    return new Style({
+      image: new CircleStyle({
+        radius,
+        fill: new Fill({ color: "rgba(0,0,255,0.6)" }),
+        stroke: new Stroke({ color: "white", width: 1 }),
+      }),
+    });
+  },
 });

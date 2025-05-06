@@ -10,11 +10,16 @@ const shelterSource = new VectorSource({
 
 export const shelterLayer = new VectorLayer({
   source: shelterSource,
-  style: new Style({
-    image: new CircleStyle({
-      radius: 6,
-      fill: new Fill({ color: "red" }),
-      stroke: new Stroke({ color: "white", width: 2 }),
-    }),
-  }),
+  zIndex: 10,
+  style: (feature) => {
+    const plasser = (feature.get("plasser") as number) || 0;
+    const radius = Math.max(4, Math.min(plasser / 20, 30));
+    return new Style({
+      image: new CircleStyle({
+        radius,
+        fill: new Fill({ color: "rgba(255,0,0,0.6)" }),
+        stroke: new Stroke({ color: "white", width: 2 }),
+      }),
+    });
+  },
 });

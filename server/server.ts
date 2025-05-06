@@ -19,7 +19,7 @@ app.get("/api/test", (c) => {
 app.get("/kws2100-Eksamen-2025/api/skoler", async (c) => {
   try {
     const result = await postgresql.query(`
-      SELECT skolenavn, kommunenummer,
+      SELECT skolenavn, antallelever, kommunenummer,
         ST_AsGeoJSON(ST_Transform(posisjon, 4326))::json AS geometry
       FROM grunnskoler_3697913259634315b061b324a3f2cf59.grunnskole
       WHERE posisjon IS NOT NULL
