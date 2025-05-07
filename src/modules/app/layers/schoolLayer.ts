@@ -6,7 +6,7 @@ import { Feature, Overlay } from "ol";
 import { Geometry } from "ol/geom";
 
 const schoolSource = new VectorSource({
-  url: "/kws2100-Eksamen-2025/api/skoler",
+  url: "/api/skoler",
   format: new GeoJSON(),
 });
 

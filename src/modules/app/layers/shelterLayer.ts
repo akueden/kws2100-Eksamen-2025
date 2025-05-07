@@ -7,7 +7,7 @@ import { Feature } from "ol";
 import { Geometry } from "ol/geom";
 
 const shelterSource = new VectorSource({
-  url: "/kws2100-Eksamen-2025/api/tilfluktsrom",
+  url: "/api/tilfluktsrom",
   format: new GeoJSON(),
 });
 

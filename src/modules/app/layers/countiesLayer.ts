@@ -4,7 +4,7 @@ import { GeoJSON } from "ol/format";
 import { Style, Stroke, Fill } from "ol/style";
 
 const countiesSource = new VectorSource({
-  url: "/kws2100-Eksamen-2025/api/fylker",
+  url: "/api/fylker",
   format: new GeoJSON(),
 });
 
