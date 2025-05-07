@@ -11,7 +11,7 @@ const countiesSource = new VectorSource({
 export const countiesLayer = new VectorLayer({
   source: countiesSource,
   style: new Style({
-    stroke: new Stroke({ color: "#333", width: 2 }),
+    stroke: new Stroke({ color: "#228B22", width: 2 }),
     fill: new Fill({ color: "rgba(0,0,0,0)" }),
   }),
 });
