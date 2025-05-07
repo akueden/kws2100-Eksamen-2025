@@ -51,7 +51,7 @@ export const createShelterPopup = (map: any) => {
             VectorSource<Feature<Geometry>>,
             Feature<Geometry>
           >,
-        ) => layer === shelterLayer, // 👈 kun shelterLayer
+        ) => layer === shelterLayer,
       },
     );
 
