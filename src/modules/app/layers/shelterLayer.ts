@@ -20,8 +20,8 @@ export const shelterLayer = new VectorLayer({
     return new Style({
       image: new CircleStyle({
         radius,
-        fill: new Fill({ color: "rgba(255,0,0,0.6)" }),
-        stroke: new Stroke({ color: "white", width: 2 }),
+        fill: new Fill({ color: "rgba(72, 113, 142, 0.8)" }),
+        stroke: new Stroke({ color: "white", width: 1 }),
       }),
     });
   },
