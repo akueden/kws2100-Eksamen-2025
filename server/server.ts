@@ -9,9 +9,10 @@ const postgresql = connectionString
   : new pg.Pool({ user: "postgres", password: "postgres" });
 
 const app = new Hono();
+
 const CRS = {
   type: "name",
-  properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },
+  properties: { name: "ESPG:4326" },
 };
 
 app.get("/api/skoler", async (c) => {
@@ -76,4 +77,3 @@ app.use("*", serveStatic({ root: "../dist" }));
 
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 serve({ fetch: app.fetch, port });
-console.log(`Server lytter på port ${port}`);
