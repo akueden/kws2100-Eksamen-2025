@@ -1,0 +1,60 @@
+html,
+body,
+#root {
+  height: 100dvh;
+  display: grid;
+  margin: 0;
+}
+.app {
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  margin: 0;
+}
+.menu {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background: #e18da1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+.menu button {
+  cursor: pointer;
+  background: #48718ecc;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: small;
+  font-family: sans-serif;
+  font-weight: initial;
+  text-align: center;
+}
+.menu button:hover {
+  background: #79a0c5;
+}
+
+.map-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
+  background: white;
+}
+.ol-control {
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.ol-control button {
+  width: 28px;
+  height: 28px;
+  color: #e18da1;
+  background: rgb(255, 255, 255);
+  cursor: pointer;
+}
