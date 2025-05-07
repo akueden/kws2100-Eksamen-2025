@@ -9,6 +9,8 @@ import {
 } from "./components/drawingVectorLayer";
 import { Feature } from "ol";
 import LiveMapWithEnturOverlay from "./components/enturOverlay";
+import { createSchoolPopup } from "./layers/schoolLayer";
+import { createShelterPopup } from "./layers/shelterLayer";
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
@@ -20,6 +22,11 @@ export function Application() {
       setMapReady(true);
     }
 
+    if (mapReady) {
+      createSchoolPopup(map);
+      createShelterPopup(map);
+    }
+
     map.on("click", (e) => {
       const features = map.getFeaturesAtPixel(e.pixel, {
         layerFilter: (l) => l === drawingVectorLayer,
@@ -28,7 +35,7 @@ export function Application() {
         drawingVectorSource.removeFeature(feature as Feature);
       }
     });
-  }, []);
+  }, [mapReady]);
 
   return (
     <>
