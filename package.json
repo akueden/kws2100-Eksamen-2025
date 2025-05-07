@@ -20,11 +20,11 @@
     "postinstall": "cd server && npm install --include=dev",
     "start": "cd server && npm start",
     "postuninstall": "cd server &&npm install --include=dev",
-    "db:heroku": "npm run db:heroku:postgis && npm run db:tilfluktsrom:heroku && npm run db:schools:heroku && npm run db:fylker:heroku",
     "db:heroku:postgis": "echo 'CREATE EXTENSION IF NOT EXISTS postgis;' \\| psql \"",
     "db:schools:heroku": "npm run db:schools:download && psql  < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
     "db:fylker2023:heroku": "npm run db:fylker2023:download && psql  < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
-    "db:tilfluktsrom:heroku": "npm run db:tilfluktsrom:download \\&\\& psql \\ \\< tmp/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.sql"
+    "db:tilfluktsrom:heroku": "npm run db:tilfluktsrom:download \\&\\& psql \\ \\< tmp/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.sql",
+    "db:heroku": "npm run db:heroku:postgis && npm run db:tilfluktsrom:heroku"
   },
   "repository": {
     "type": "git",
