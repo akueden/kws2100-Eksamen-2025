@@ -58,3 +58,19 @@ body,
   background: rgb(255, 255, 255);
   cursor: pointer;
 }
+
+.shelterpopup {
+  padding: 10px;
+  background-color: rgba(207, 210, 244);
+  border: 1px solid black;
+  border-radius: 5px;
+  font-family: sans-serif;
+}
+
+.schoolpopup {
+  padding: 10px;
+  background-color: rgba(255, 203, 253);
+  border: 1px solid black;
+  border-radius: 5px;
+  font-family: sans-serif;
+}
