@@ -10,6 +10,8 @@ import {
 import { Feature } from "ol";
 import LiveMapWithEnturOverlay from "./components/enturOverlay";
 import "./application.css";
+import { createSchoolPopup } from "./layers/schoolLayer";
+import { createShelterPopup } from "./layers/shelterLayer";
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
@@ -30,6 +32,13 @@ export function Application() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (mapReady) {
+      createSchoolPopup(map);
+      createShelterPopup(map);
+    }
+  }, [mapReady]);
 
   return (
     <div className={"app"}>
