@@ -19,14 +19,12 @@
     "db:fylker:import": "docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
     "postinstall": "cd server && npm install --include=dev",
     "start": "cd server && npm start",
-    "db:heroku": "npm run db:heroku:postgis && npm run db:schools:heroku && npm run db:fylker2023:heroku && npm run db:prepare:heroku",
-    "db:heroku:postgis": "echo 'create extension postgis' | psql ",
-    "db:heroku:schools": "psql \"$DATABASE_URL\" < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
-    "db:heroku:fylker": "psql \"$DATABASE_URL\" < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
-    "db:heroku:prepare": "psql \"$DATABASE_URL\" < scripts/prepare-db.sql",
-    "db:schools:heroku": "npm run db:schools:download && psql  < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
-    "db:fylker2023:heroku": "npm run db:fylker2023:download && psql  < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
-    "db:prepare:heroku": "psql  < scripts/prepare-db.sql"
+    "postuninstall": "cd server &&npm install --include=dev",
+    "db:heroku": "npm run db:heroku:postgis && npm run db:heroku:schools && npm run db:heroku:fylker && npm run db:heroku:prepare",
+    "db:heroku:postgis": "psql \"$DATABASE_URL\" -c \"CREATE EXTENSION IF NOT EXISTS postgis;\"",
+    "db:heroku:schools": "psql \"$DATABASE_URL\" -f tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
+    "db:heroku:fylker": "psql \"$DATABASE_URL\" -f tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
+    "db:heroku:prepare": "psql \"$DATABASE_URL\" < scripts/prepare-db.sql"
   },
   "repository": {
     "type": "git",
