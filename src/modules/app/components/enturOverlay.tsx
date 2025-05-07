@@ -16,8 +16,8 @@ const vehicleLayer = new VectorLayer({
     new Style({
       image: new Circle({
         radius: 8,
-        fill: new Fill({ color: "blue" }),
-        stroke: new Stroke({ color: "white", width: 2 }),
+        fill: new Fill({ color: "rgba(50, 53, 82, 0.8)" }),
+        stroke: new Stroke({ color: "white", width: 1 }),
       }),
       text: new Text({
         text: feature.get("routeId"),
