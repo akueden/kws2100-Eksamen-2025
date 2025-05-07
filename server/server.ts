@@ -8,7 +8,13 @@ const pool = process.env.DATABASE_URL
       connectionString: process.env.DATABASE_URL,
       ssl: { rejectUnauthorized: false },
     })
-  : new pg.Pool({ user: "postgres" });
+  : new pg.Pool({
+      user: "postgres",
+      password: "postgres",
+      host: "localhost",
+      port: 5432,
+      database: "postgres",
+    });
 
 const app = new Hono();
 const CRS = {
@@ -44,12 +50,11 @@ app.get("/api/skoler", async (c) => {
     const { rows } = await pool.query(sql);
     return c.json(toFeatureCollection(rows, "Point"));
   } catch (err) {
-    console.error("Feil i /api/skoler:");
+    console.error("Feil i /api/skoler:", err);
     return c.text("Noe gikk galt på serveren");
   }
 });
 
-/** GET /api/fylker */
 app.get("/api/fylker", async (c) => {
   const sql = `
     SELECT n.navn,
@@ -63,12 +68,11 @@ app.get("/api/fylker", async (c) => {
     const { rows } = await pool.query(sql);
     return c.json(toFeatureCollection(rows, "MultiPolygon"));
   } catch (err) {
-    console.error("Feil i /api/fylker:");
+    console.error("Feil i /api/fylker:", err);
     return c.text("Noe gikk galt på serveren");
   }
 });
 
-/** GET /api/tilfluktsrom */
 app.get("/api/tilfluktsrom", async (c) => {
   const sql = `
     SELECT objid,
@@ -83,7 +87,7 @@ app.get("/api/tilfluktsrom", async (c) => {
     const { rows } = await pool.query(sql);
     return c.json(toFeatureCollection(rows, "Point"));
   } catch (err) {
-    console.error("Feil i /api/tilfluktsrom:");
+    console.error("Feil i /api/tilfluktsrom:", err);
     return c.text("Noe gikk galt på serveren");
   }
 });
