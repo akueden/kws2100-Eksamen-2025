@@ -4,18 +4,19 @@ import pg from "pg";
 
 const connectionString = process.env.DATABASE_URL;
 
-const postgresql =
-    connectionString
-        ? new pg.Pool({ connectionString, ssl: { rejectUnauthorized: false } })
-        : new pg.Pool({
-          user: "postgres",
-          password: "postgres",
-          host: "localhost",
-          port: 5432,
-          database: "postgres",
-        });
+const postgresql = connectionString
+  ? new pg.Pool({ connectionString, ssl: { rejectUnauthorized: false } })
+  : new pg.Pool({
+      user: "postgres",
+      password: "postgres",
+      host: "localhost",
+      port: 5432,
+      database: "postgres",
+    });
 
 const app = new Hono();
+
+app.get("/", (c) => c.text("API‑serveren kjører!"));
 
 app.get("/api/test", (c) => {
   return c.text("Serveren kjører!");
