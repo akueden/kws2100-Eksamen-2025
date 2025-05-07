@@ -2,13 +2,18 @@ import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import pg from "pg";
 
-const postgresql = new pg.Pool({
-  user: "postgres",
-  password: "postgres",
-  host: "localhost",
-  port: 5432,
-  database: "postgres",
-});
+const connectionString = process.env.DATABASE_URL;
+
+const postgresql =
+    connectionString
+        ? new pg.Pool({ connectionString, ssl: { rejectUnauthorized: false } })
+        : new pg.Pool({
+          user: "postgres",
+          password: "postgres",
+          host: "localhost",
+          port: 5432,
+          database: "postgres",
+        });
 
 const app = new Hono();
 
@@ -107,4 +112,11 @@ app.get("/kws2100-Eksamen-2025/api/tilfluktsrom", async (c) => {
   }
 });
 
-serve(app);
+const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+
+serve({
+  fetch: app.fetch,
+  port,
+});
+
+console.log(`Server lytter på ${port}`);
