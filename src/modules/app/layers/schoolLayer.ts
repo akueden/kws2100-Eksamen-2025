@@ -61,7 +61,7 @@ export const createSchoolPopup = (map: any) => {
       const elevtall = properties.antallelever;
 
       const content = `
-        <div style="padding: 10px; background-color: white; border: 1px solid #ccc; border-radius: 5px;">
+        <div class="schoolpopup">
           <h3>${name}</h3>
           <p>Antall elever: ${elevtall}</p>
         </div>

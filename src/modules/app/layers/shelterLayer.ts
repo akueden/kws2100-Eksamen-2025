@@ -16,7 +16,7 @@ export const shelterLayer = new VectorLayer({
   zIndex: 10,
   style: (feature) => {
     const plasser = (feature.get("plasser") as number) || 0;
-    const radius = Math.max(4, Math.min(plasser / 20, 30));
+    const radius = Math.max(5, Math.min(plasser / 20, 30));
     return new Style({
       image: new CircleStyle({
         radius,
@@ -61,7 +61,7 @@ export const createShelterPopup = (map: any) => {
       const plasser = properties.plasser;
 
       const content = `
-        <div style="padding: 10px; background-color: white; border: 1px solid #ccc; border-radius: 5px;">
+        <div class="shelterpopup">
           <h3>${name}</h3>
           <p>Antall plasser: ${plasser}</p>
         </div>
