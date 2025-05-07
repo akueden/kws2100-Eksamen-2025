@@ -9,8 +9,7 @@ import {
 } from "./components/drawingVectorLayer";
 import { Feature } from "ol";
 import LiveMapWithEnturOverlay from "./components/enturOverlay";
-import { createSchoolPopup } from "./layers/schoolLayer";
-import { createShelterPopup } from "./layers/shelterLayer";
+import "./application.css";
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
@@ -22,11 +21,6 @@ export function Application() {
       setMapReady(true);
     }
 
-    if (mapReady) {
-      createSchoolPopup(map);
-      createShelterPopup(map);
-    }
-
     map.on("click", (e) => {
       const features = map.getFeaturesAtPixel(e.pixel, {
         layerFilter: (l) => l === drawingVectorLayer,
@@ -35,17 +29,20 @@ export function Application() {
         drawingVectorSource.removeFeature(feature as Feature);
       }
     });
-  }, [mapReady]);
+  }, []);
 
   return (
-    <>
-      <DrawPointButton map={map} source={drawingVectorSource} />
-      <DrawPolygonButton map={map} source={drawingVectorSource} />
-      <DrawCircleButton map={map} source={drawingVectorSource} />
-      <div style={{ position: "relative", width: "100%", height: "100vh" }}>
-        <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
+    <div className={"app"}>
+      <nav className={"menu"}>
+        <DrawPointButton map={map} source={drawingVectorSource} />
+        <DrawPolygonButton map={map} source={drawingVectorSource} />
+        <DrawCircleButton map={map} source={drawingVectorSource} />
+      </nav>
+
+      <main className={"map-wrapper"}>
+        <div ref={mapRef} className={"map"} />
         {mapReady && <LiveMapWithEnturOverlay map={map} />}
-      </div>
-    </>
+      </main>
+    </div>
   );
 }
