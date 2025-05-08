@@ -11,9 +11,9 @@
     "db:schools": "npm run db:schools:download && npm run db:schools:import",
     "db:schools:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip",
     "db:schools:import": "docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
-    "db:tilfluktsrom": "npm run db:tilfluktsrom:download && npm run db:tilfluktsrom:import",
-    "db:tilfluktsrom:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Samfunnssikkerhet/TilfluktsromOffentlige/PostGIS/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.zip",
-    "db:tilfluktsrom:import": "docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.sql",
+    "db:shelters": "npm run db:shelters:download && npm run db:shelters:import",
+    "db:shelters:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Samfunnssikkerhet/TilfluktsromOffentlige/PostGIS/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.zip",
+    "db:shelters:import": "docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.sql",
     "db:fylker": "npm run db:fylker:download && npm run db:fylker:import",
     "db:fylker:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Basisdata/Fylker/PostGIS/Basisdata_0000_Norge_25833_Fylker_PostGIS.zip",
     "db:fylker:import": "docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
@@ -26,8 +26,7 @@
     "db:shelters:heroku": "npm run db:shelters:download && psql $DATABASE_URL < tmp/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.sql",
     "db:prepare:heroku": "psql $DATABASE_URL < scripts/prepare-db.sql",
     "db:heroku": "npm run db:heroku:postgis && npm run db:schools:heroku && npm run db:fylker2023:heroku && npm run db:shelters:heroku && npm run db:prepare:heroku",
-    "db:fylker2023:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Basisdata/Kommuner-og-fylker/PostGIS/Basisdata_0000_Norge_25833_Fylker_PostGIS.zip",
-    "db:shelters:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Samfunnssikkerhet/PostGIS/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.zip"
+    "db:fylker2023:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Basisdata/Kommuner-og-fylker/PostGIS/Basisdata_0000_Norge_25833_Fylker_PostGIS.zip"
   },
   "repository": {
     "type": "git",
