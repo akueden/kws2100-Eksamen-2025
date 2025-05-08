@@ -1,2 +1,4 @@
+Applikasjon deployet med heroku: https://peaceful-peak-82215-ddefebec67a4.herokuapp.com/
+
 Vi har utviklet et interaktivt kart som viser grunnskoler og tilfluktsrom i Oslo. Formålet er å gjøre det enkelt for skolene å finne nærmeste tilfluktsrom i en nødsituasjon. Kartet inkluderer også sanntidsdata fra Entur, som gir oversikt over aktuelle kollektivruter. Dette gjør det mulig å planlegge den mest effektive og tilgjengelige ruten ved en evakuering.
 Kartet viser også hvor mange elever det er per skole og hvor mange plasser hvert tilfluktsrom har, noe som bidrar til bedre fordeling og tryggere beslutninger under en krisesituasjon.
