@@ -23,8 +23,8 @@ We have developed an interactive map displaying primary schools and public shelt
 
 The map integrates real-time data from Entur, providing an overview of current public transport routes. This makes it possible to plan the most efficient and accessible evacuation route. Additionally, the map shows the number of students per school and the capacity of each shelter, helping to distribute evacuees more effectively and make safer decisions during a crisis.
 
-Users can also save a point, a polygon, or a circle within the map application for marking and reusing areas of interest.
+Users can also save a point, a polygon, or a circle within the map application.
 
 Work Process – Pair Programming
 
-We have aimed to contribute equally by working together on the same codebase—not only individually on our own machines, but also by assisting each other across workstations. As a result, the commit history does not fully or accurately reflect our distribution of work. Additionally, one of us spent a significant amount of time setting up the Heroku deployment and database, resulting in a number of commits related specifically to that part of the project.
+We have aimed to contribute equally by working together on the same code, not only individually on our own PC, but also by assisting each other across machines. As a result, the commit history does not fully or accurately reflect our distribution of work. Additionally, one of us spent a significant amount of time setting up the Heroku deployment and database, resulting in a number of commits related specifically to that part of the project.
