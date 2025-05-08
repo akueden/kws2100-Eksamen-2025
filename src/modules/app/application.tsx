@@ -19,7 +19,7 @@ export function Application() {
 
   useEffect(() => {
     if (mapRef.current) {
-      map.setTarget(mapRef.current);
+      map.setTarget(mapRef.current!);
       setMapReady(true);
     }
 
@@ -39,6 +39,26 @@ export function Application() {
       createShelterPopup(map);
     }
   }, [mapReady]);
+
+  function handlePointerMove() {}
+
+  useEffect(() => {
+    map.setTarget(mapRef.current!);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { longitude, latitude } = pos.coords;
+        map.getView().animate({
+          center: [longitude, latitude],
+          zoom: 15,
+        });
+      },
+      (error) => {
+        alert(error.message);
+      },
+    );
+
+    map.on("pointermove", handlePointerMove);
+  }, []);
 
   return (
     <div className={"app"}>
