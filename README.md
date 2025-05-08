@@ -4,12 +4,12 @@ Application deployed on Heroku: https://peaceful-peak-82215-ddefebec67a4.herokua
 
 Beskrivelse av prosjektet
 
-Vi har utviklet et interaktivt kart som viser grunnskoler og tilfluktsrom i Oslo, innenfor deres tilhørende fylke. Formålet er å gjøre det enkelt for skolene å finne nærmeste tilfluktsrom i en nødsituasjon. Applikasjonen tilpasser seg også etter brukerens posisjon, slik at du alltid får vist skoler og tilfluktsrom i nærheten. 
+Vi har utviklet et interaktivt kart som viser grunnskoler og tilfluktsrom i Oslo, innenfor deres tilhørende fylke. Formålet er å gjøre det enkelt for skolene å finne nærmeste tilfluktsrom i en nødsituasjon. 
 
 Kartet inkluderer også sanntidsdata fra Entur, som gir oversikt over aktuelle kollektivruter. Dette gjør det mulig å planlegge den mest effektive og tilgjengelige ruten ved en evakuering.
 Kartet viser også hvor mange elever det er per skole og hvor mange plasser hvert tilfluktsrom har, noe som bidrar til bedre fordeling og tryggere beslutninger under en krisesituasjon.
 
-Det er også mulig å lagre et punkt, et polygon eller en sirkel i kartapplikasjonen.
+Det er også mulig å tegne et punkt, et polygon eller en sirkel i kartapplikasjonen.
 
 Arbeidsprosess - parprogrammering
 
@@ -23,7 +23,7 @@ We have developed an interactive map displaying primary schools and public shelt
 
 The map integrates real-time data from Entur, providing an overview of current public transport routes. This makes it possible to plan the most efficient and accessible evacuation route. Additionally, the map shows the number of students per school and the capacity of each shelter, helping to distribute evacuees more effectively and make safer decisions during a crisis.
 
-Users can also save a point, a polygon, or a circle within the map application.
+Users can also draw a point, a polygon, or a circle within the map application.
 
 Work Process – Pair Programming
 
