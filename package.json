@@ -20,12 +20,14 @@
     "postinstall": "cd server && npm install --include=dev",
     "start": "cd server && npm start",
     "postuninstall": "cd server &&npm install --include=dev",
-    "db:heroku:postgis":  "psql $DATABASE_URL -c \"CREATE EXTENSION IF NOT EXISTS postgis;\"",
-    "db:schools:heroku":  "npm run db:schools:download && psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
-    "db:fylker2023:heroku":"npm run db:fylker2023:download && psql $DATABASE_URL < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
-    "db:shelters:heroku":"npm run db:shelters:download && psql $DATABASE_URL < tmp/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.sql",
-    "db:prepare:heroku":   "psql $DATABASE_URL < scripts/prepare-db.sql",
-    "db:heroku":           "npm run db:heroku:postgis && npm run db:schools:heroku && npm run db:fylker2023:heroku && npm run db:shelters:heroku && npm run db:prepare:heroku"
+    "db:heroku:postgis": "psql $DATABASE_URL -c \"CREATE EXTENSION IF NOT EXISTS postgis;\"",
+    "db:schools:heroku": "npm run db:schools:download && psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
+    "db:fylker2023:heroku": "npm run db:fylker2023:download && psql $DATABASE_URL < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
+    "db:shelters:heroku": "npm run db:shelters:download && psql $DATABASE_URL < tmp/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.sql",
+    "db:prepare:heroku": "psql $DATABASE_URL < scripts/prepare-db.sql",
+    "db:heroku": "npm run db:heroku:postgis && npm run db:schools:heroku && npm run db:fylker2023:heroku && npm run db:shelters:heroku && npm run db:prepare:heroku",
+    "db:fylker2023:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Basisdata/Kommuner-og-fylker/PostGIS/Basisdata_0000_Norge_25833_Fylker_PostGIS.zip",
+    "db:shelters:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Samfunnssikkerhet/PostGIS/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.zip"
   },
   "repository": {
     "type": "git",
