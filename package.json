@@ -20,12 +20,11 @@
     "postinstall": "cd server && npm install --include=dev",
     "start": "cd server && npm start",
     "postuninstall": "cd server &&npm install --include=dev",
+    "db:heroku": "npm run db:heroku:postgis && npm run db:tilfluktsrom:heroku && npm run db:schools:heroku && npm run db:fylker:heroku",
     "db:heroku:postgis": "psql \"$DATABASE_URL\" -c \"CREATE EXTENSION IF NOT EXISTS postgis;\"",
-    "db:tilfluktsrom:heroku": "psql \"$DATABASE_URL\" -f tmp/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.sql",
-    "db:schools:heroku": "psql \"$DATABASE_URL\" -f tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
-    "db:fylker:heroku": "psql \"$DATABASE_URL\" -f tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
-    "db:heroku:prepare": "psql \"$DATABASE_URL\" -f scripts/prepare-db.sql",
-    "db:heroku": "npm run db:heroku:postgis && npm run db:tilfluktsrom:heroku && npm run db:schools:heroku && npm run db:fylker:heroku && npm run db:heroku:prepare"
+    "db:tilfluktsrom:heroku": "npm run db:tilfluktsrom:download && psql \"$DATABASE_URL\" -f tmp/Samfunnssikkerhet_0000_Norge_25833_TilfluktsromOffentlige_PostGIS.sql",
+    "db:schools:heroku": "npm run db:schools:download   && psql \"$DATABASE_URL\" -f tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
+    "db:fylker:heroku": "npm run db:fylker:download    && psql \"$DATABASE_URL\" -f tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql"
   },
   "repository": {
     "type": "git",
